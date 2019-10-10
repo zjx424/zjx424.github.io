@@ -134,6 +134,71 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-目标识别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/10/目标识别/">目标识别</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/10/目标识别/" class="archive-article-date">
+  	<time datetime="2019-10-10T11:39:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>you only look once<br>1,设定一个19<em>19的网络在图片上(如图1,图1为3</em>3)<br><img src="/2019/10/10/目标识别/yolo1.png" alt="图1"><br>2,然后在每一块中计算(pc,bx,by,bh,bw,c1,c2,c3)(即是是否有目标pc,bx,中心点x,中心点y,方框height,方框width,c1汽车,c2人,c3摩托)<br>3然后把存在物体中心点的格子分配到该方块(如图2)<br><img src="/2019/10/10/目标识别/yolo2.png" alt="图2"><br>得出结论–&gt;输出的维度为3<em>3</em>8,3*3为方格数,8为识别数</p>
+<p>4会得出一个类似(图3)的图,每一个19<em>19的都会一个框.<br><img src="/2019/10/10/目标识别/yolo3.png" alt="图3"><br>5非极大值抑制:如果这几个格子检测到同一目标,则取最大的pc,pc=c1</em>c2*c3 然后查找周围的格子,寻找到其余的格子,然后如果其Iou比例高的话,则舍弃,即重叠程度高(交集/并集)</p>
+<p>6anchor box<br>对于存在重叠的对象,如(图4)<br>无法判断其是车还是人,则需要anchor box,定义两个不同形状的box,向量则变为两个anchor box重叠<br><img src="/2019/10/10/目标识别/yolo4.png" alt="图4"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/10/目标识别/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-个人简历" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
