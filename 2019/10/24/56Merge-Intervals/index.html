@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>ZJX的个人博客</title>
-  <meta name="keywords" content>
-  <meta name="description" content="ZJX的个人博客">
+  <title>56Merge_Intervals | ZJX的个人博客</title>
+  <meta name="keywords" content=" Leetcode ">
+  <meta name="description" content="56Merge_Intervals | ZJX的个人博客">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="仿射变换指的是一个向量空间进行一次线性变换并接上一个平移，变换为另一个向量空间的过程。 图像进行仿射变换后，有以下几个特点：二维图形之间的相对位置关系保持不变，平行线依旧是平行线，且直线上的点的位置顺序保持不变。 一个任意的仿射变换都可以表示为乘以一个矩阵（线性变换）接着再加上一个向量（平移）的形式。 三种常见形式：旋转，rotation（线性变换）平移，translation（向量加）缩放，sc">
 <meta name="keywords" content="数字图像处理100题">
@@ -53,7 +53,7 @@
 </div>
 
 <body>
-<aside class="nav mobile">
+<aside class="nav">
     <div class="nav-left">
         <a href="/" class="avatar_target">
     <img class="avatar" src="/img/head.jpg" />
@@ -256,12 +256,49 @@
         </div>
     </div>
 </aside>
-<div class="post index">
+<div class="post">
     <div class="pjax">
-        <article class="index">
-            <div class="toc-ref">
+        <article id="post-56Merge-Intervals" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#欢迎光临zjx的个人博客"><span class="toc-text">欢迎光临zjx的个人博客</span></a></li></ol>
+        <h1 class="article-title">56Merge_Intervals</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        
+        <span class="tag">
+            
+            <a href="javascript:" class="color4">Leetcode</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-10-24 19:28:34'>2019-10-24 19:00</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        
     
 <style>
     .left-col .switch-btn,
@@ -274,15 +311,49 @@
     }
 </style>
 </div>
-            <h1 id="欢迎光临zjx的个人博客"><a href="#欢迎光临zjx的个人博客" class="headerlink" title="欢迎光临zjx的个人博客"></a>欢迎光临zjx的个人博客</h1><p><img src="img/windows_xp_bliss-1920x1200.jpg" alt="欢迎"></p>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题目:<br>Given a collection of intervals, merge all overlapping intervals.</p>
+<p>Example 1:</p>
+<p>Input: [[1,3],[2,6],[8,10],[15,18]]<br>Output: [[1,6],[8,10],[15,18]]<br>Explanation: Since intervals [1,3] and [2,6] overlaps, merge them into [1,6].</p>
+<p>Example 2:</p>
+<p>Input: [[1,4],[4,5]]<br>Output: [[1,5]]<br>Explanation: Intervals [1,4] and [4,5] are considered overlapping.</p>
+<p>给定一堆 [1,4],[4,8],[7,8]的序列求他们之间的并集<br>具体查看exp1,exp2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def merge(self, intervals):</span><br><span class="line">        ans=[]</span><br><span class="line">        for interval in sorted(intervals,key=lambda x: x[0]):</span><br><span class="line">            if not ans or interval[0]&gt;ans[-1][-1]:</span><br><span class="line">                ans.append(interval)</span><br><span class="line">            else:</span><br><span class="line">                ans[-1][-1]=max(ans[-1][-1],interval[-1])</span><br><span class="line">        return ans</span><br></pre></td></tr></table></figure>
 
-        </article>
-        
-        <p>
-            <a href="javascript:void(0)" class="dashang" onclick="dashangToggle()">赏</a>
-        </p>
-        
-        
+<p><img src="/2019/10/24/56Merge-Intervals/1.jpg" alt="1"></p>
+<p>需要先对intervals进行排序(这里是对开头大小进行排序),定义输出结果为ans=[]<br>sorted(intervals,key=lambda x: x[0])</p>
+<p>if no ans 如果ans里面还没有元素,则把第一个存储在ans里,即是ans.append(interval)</p>
+<p>or</p>
+<p>图中的情况1,[2,6],[7,10]没有交集</p>
+<p>ans也要append(interval)</p>
+<p>情况1书写为<br>ans[-1][-1]&lt;interval[0]   即[7,10]的7 &gt; [2,6]的6</p>
+<p>情况2 有交集的情况 即ans[-1][-1]&gt;=interval[0] 这里写为else</p>
+<p>情况2 又分为2种 一种是[2,6][5,10]  另一种是[2,10][8,9]</p>
+<p>这里的并集取 [2,10]  应为10在第一种第二种方案下都是 ans[-1][-1] 与 interval[-1]中的较大值<br>只需要把 ans[-1][-1]=max(ans[-1][-1],interval[-1])</p>
+<p>最后return ans</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 380435428@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a href="javascript:void(0)" class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+
+
+
+
+    
+
+
+
+
     </div>
     <div class="copyright">
         <p class="footer-entry">©2016-2019 Yelog</p>
