@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>链家爬虫与数据分析 | ZJX的个人博客</title>
-  <meta name="keywords" content=" 爬虫数据分析网站 ">
-  <meta name="description" content="链家爬虫与数据分析 | ZJX的个人博客">
+  <title>关于tf-faster-rcnn的笔记 | ZJX的个人博客</title>
+  <meta name="keywords" content=" 目标检测定位 ">
+  <meta name="description" content="关于tf-faster-rcnn的笔记 | ZJX的个人博客">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="重映射:就是把一副图像中某个位置的像素放置到另一个图片中的指定位置的过程 g(x,y)=f(h(x,y)) 具体代码实现(可以查看数字图像处理第28道题目): 12345678910111213141516171819202122int test28() &amp;#123;	Mat src = imread(&amp;quot;imori.jpg&amp;quot;, IMREAD_COLOR);		Mat dst(s">
 <meta name="keywords" content="数字图像处理100题">
@@ -241,9 +241,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-lianjia" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-关于tf-faster-rcnn的笔记" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">链家爬虫与数据分析</h1>
+        <h1 class="article-title">关于tf-faster-rcnn的笔记</h1>
     
     <div class="article-meta">
         
@@ -252,14 +252,14 @@
         
         <span class="tag">
             
-            <a href="javascript:" class="color4">爬虫数据分析网站</a>
+            <a href="javascript:" class="color2">目标检测定位</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-10-24 14:01:47'>2019-03-03 23:01</time>
+        创建时间:<time class="date" title='更新时间: 2019-10-24 17:38:06'>2019-10-24 14:23</time>
         
     </div>
     <div class="article-meta">
@@ -297,25 +297,50 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>爬虫部分:<br>利用python的scrapy框架对链家(lianjia.com)进行爬取,爬取城市约95个,每个城市二手房数量约20000条,数据总数约为200万条.</p>
-<p>分析部分:<br>利用numpy,pandas对抓取到的数据进行普通的分析,如平均值,极值,区域平均值.</p>
-<p>可视化部分:<br>在jupyternotebook上利用matplotlib对数据进行可视化,显示出堆叠图,条形图,饼状图.</p>
-<a id="more"></a>
-<p>功能:用户可以输入想要查看的城市,从数据库中读取到该城市的二手房数据,读取出csv文件(或者excel可供用户选择)保存在本地,等待用户自己进行分析,或者使用分析部分,直接帮助用户对数据进行分析.直接显示出统计数据,条形图,堆叠图等可视化信息,以供用户进行大致的了解</p>
-<p>下面是广州部分数据的展示:</p>
-<p>包括:标题(title),网页地址(url),地址(address),每平方米单价(unit_Price),总价(total_price),面积(area),区域(area1),朝向(direction),层数(floor),房间结构(rooms),类型(type),推荐原因(recommended)</p>
-<p><img src="/2019/03/03/lianjia/%E6%95%B0%E6%8D%AE%E5%B1%95%E7%A4%BA.png" alt="阿里云mysql数据库"></p>
-<!--more-->
-<p>可视化(以广州为准):</p>
-<p><img src="/2019/03/03/lianjia/%E5%9D%87%E5%80%BC.png" alt="均值"><br><img src="/2019/03/03/lianjia/%E6%98%82%E8%B4%B5.png" alt="昂贵"><br><img src="/2019/03/03/lianjia/%E6%95%B0%E9%87%8F%E6%9D%A1%E5%BD%A2%E5%9B%BE.png" alt="区域数量条形图"><br><img src="/2019/03/03/lianjia/%E5%8D%95%E4%BB%B7%E6%9D%A1%E5%BD%A2%E5%9B%BE.png" alt="单价条形图"><br><img src="/2019/03/03/lianjia/%E6%80%BB%E4%BB%B7%E6%9D%A1%E5%BD%A2%E5%9B%BE.png" alt="总价条形图"><br><img src="/2019/03/03/lianjia/%E5%8D%95%E4%BB%B7%E5%88%86%E5%B8%83.png" alt="单价堆叠图"><br><img src="/2019/03/03/lianjia/%E6%80%BB%E4%BB%B7%E5%88%86%E5%B8%83.png" alt="总价堆叠图"></p>
-<p>主要过程:</p>
-<p>  设计之初,我犯了一个巨大错误,就是希望在使用用户的主机上直接实行爬虫程序,这是完全错误的想法,<br>首先利用用户主机进行爬虫,会造成用户的内存,CPU,网络大量流失,使得用户在运行时,不能获得良好的<br>体验,这是非常错误的.</p>
-<p>  为何不把繁琐的工作交给服务器,用户只需要从服务器上读取到自己想要的数据,然后在自己的电脑上实现分析<br>即可,这样的做法较之与前,是有着无数的优点.<br>    第一:节省时间,用户读取数据,所有都是有效信息,而爬虫则是需要从无数的网页进行xpath数量抓取,从沙中<br>淘金这样,读取只需要短短的1分钟,而爬取则需要数不甚数的时间<br>    第二:节省资源,如果说用户需要用自己的CPU,自己的内存,自己的网络进行抓取,这是多么愚蠢的一件事,用户看重<br>的不是你的过程,你给他呈现怎么样的过程,用户一点也不会关系,更不用说你占用了他所有的资源,我承认看着数据一点<br>获取是一件很爽的事,但是这件事如果让你的电脑网络占用,内存占用,那就谈不上是一种享受了.<br>    第三:过程简单化,如果在抓取过程中,出现了错误,爬虫中断,或者自己的ip池,cookie池失效,则爬虫程序会终止,<br>用户难不成要通过修改你的程序来获得数据?而读取数据库的错误甚微,基本不会出现错误.</p>
-<p>我对爬虫的看法:<br>我学完python之后很快就入了爬虫的坑,起初爬取一些图片资源,看着那些美眉的图片显示在我的硬盘里,给予了我莫大的满足感,<br>之后我抓取了豆瓣,前程无忧,京东等有意思的网站,这之间花费了我大概半年的时间,我从普通的用for循环和urllib,到xpath加构建方法,<br>到pyspider,到scrapy学习了很多牛逼的爬虫技术,期间我还购买了自己的服务器,实现了scrapy-redis分布式爬虫,实现了自己本机和服务器双端<br>共同爬取网页.数据库的知识也是从mongodb,redis,再到mysql,这些数据库,我只能说,我懂得甚微,只是简单的增删改查,这些就足以满足我的爬虫<br>需求了.</p>
-<p>但是,在我学习了pandas,numpy,matplotlib之后,我发现,爬虫其实就是一种工具,把它完全当做自己的工作是比较困难的一件事.</p>
-<p>爬虫的缺点:爬虫的目的就是获取的数据,这些数据用来干嘛呢,当然是用来分析,但是一旦数据被网站封锁,或者数据经过网站修改,这样爬取的结果会<br>出现全盘的错误,而错误的数据肯定会得出错误的结果,并且有着反爬的手段,就我所知现在的验证方式,除了验证码,登陆,拖动登陆,图形验证码,这样的验证码,<br>层出不穷,如果要对这些网站反爬你就必须得攻克这些反爬,这些会浪费大量的时间,不同的验证方式,就有不同的验证手法,所以说爬虫获取的数据只能起到辅助<br>分析的作用,并不能取到主要的数据获取来源.</p>
-<p>那么怎么样才能使数据来源变得可靠呢?</p>
-<p>我觉得为用户创造环境,用户自身产生数据,自己的数据,永远从别人那里获得的数据可靠的多.</p>
+        <p>参考链接:<br><a href="http://www.telesens.co/2018/03/11/object-detection-and-classification-using-r-cnns/" target="_blank" rel="noopener">http://www.telesens.co/2018/03/11/object-detection-and-classification-using-r-cnns/</a><br><a href="https://zhuanlan.zhihu.com/p/31426458" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/31426458</a></p>
+<p>安装教程:<br><a href="https://github.com/endernewton/tf-faster-rcnn" target="_blank" rel="noopener">https://github.com/endernewton/tf-faster-rcnn</a><br><a href="https://blog.csdn.net/sinat_33486980/article/details/81045315" target="_blank" rel="noopener">https://blog.csdn.net/sinat_33486980/article/details/81045315</a></p>
+<p>R-CNN–&gt;fast rcnn–&gt;faster rcnn</p>
+<p>我这里利用的是tensorflow框架</p>
+<p>经过R-CNN和Fast RCNN的积淀，Ross B. Girshick在2016年提出了新的Faster RCNN，在结构上，Faster RCNN已经将特征抽取(feature extraction)，proposal提取，bounding box regression(rect refine)，classification都整合在了一个网络中，使得综合性能有较大提高，在检测速度方面尤为明显。</p>
+<p>具体网络架构如下:<br><img src="/2019/10/24/关于tf-faster-rcnn的笔记/1.png" alt="图1"></p>
+<p>代码部分<br>图像预处理<br>在通过网络发送图像之前，以下预处理步骤已应用于该图像。对于训练和推理，这些步骤必须相同。<br>平均值矢量（3 X1对应于每个颜色通道的一个数字）不是当前图像中像素值的平均值，而是在所有训练和测试图像中相同的配置值。<br><img src="/2019/10/24/关于tf-faster-rcnn的笔记/5.png" alt="图5"></p>
+<p>预处理步骤在model.test.py以及utils.blob.py 涉及的函数有:<br>_get_blobs  _get_image_blob im_list_to_blob</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">def _get_image_blob(im):</span><br><span class="line">    &quot;&quot;&quot;Converts an image into a network input.将图像转换为网络输入。</span><br><span class="line">    Arguments:</span><br><span class="line">      im (ndarray): a color image in BGR order</span><br><span class="line">    Returns:</span><br><span class="line">      blob (ndarray): a data blob holding an image pyramid持有图像金字塔的数据块</span><br><span class="line">      im_scale_factors (list): list of image scales (relative to im) used</span><br><span class="line">        in the image pyramid使用的图像比例列表（相对于im）在图像金字塔中&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">    im_orig = im.astype(np.float32, copy=True)</span><br><span class="line">    # 预处理:__C.PIXEL_MEANS = np.array([[[102.9801, 115.9465, 122.7717]]])</span><br><span class="line">    im_orig -= cfg.PIXEL_MEANS</span><br><span class="line"></span><br><span class="line">    im_shape = im_orig.shape</span><br><span class="line">    im_size_min = np.min(im_shape[0:2])  # 显示图像较短的边</span><br><span class="line">    im_size_max = np.max(im_shape[0:2])  # 显示图像较长的边</span><br><span class="line"></span><br><span class="line">    processed_ims = []</span><br><span class="line">    im_scale_factors = []</span><br><span class="line">    # __C.TEST.SCALES = (600,)</span><br><span class="line">    for target_size in cfg.TEST.SCALES:</span><br><span class="line">        im_scale = float(target_size) / float(im_size_min)</span><br><span class="line">        # Prevent the biggest axis from being more than MAX_SIZE</span><br><span class="line">        if np.round(im_scale * im_size_max) &gt; cfg.TEST.MAX_SIZE:</span><br><span class="line">            im_scale = float(cfg.TEST.MAX_SIZE) / float(im_size_max)</span><br><span class="line">        im = cv2.resize(im_orig, None, None, fx=im_scale, fy=im_scale,</span><br><span class="line">                        interpolation=cv2.INTER_LINEAR)</span><br><span class="line">        #</span><br><span class="line">        im_scale_factors.append(im_scale)</span><br><span class="line">        processed_ims.append(im)</span><br><span class="line">    # Create a blob to hold the input images</span><br><span class="line">    blob = im_list_to_blob(processed_ims)</span><br><span class="line"></span><br><span class="line">    return blob, np.array(im_scale_factors)</span><br></pre></td></tr></table></figure>
+
+<p>通过上面的预处理可以把图像输入变成 blobs, im_scales<br>blobs<br>Caffe使用Blob来交流数据，其是Caffe中标准的数组与统一的内存接口，它是多功能的。在不同的应用场景具有不同的含义，如能够是：batches of images, model parameters, and derivatives for optimization等。<br>im_scales<br>是比例一类的数据,证明输入不同尺寸的图片,它的im_scales不同</p>
+<p>输入graffe.jpg<br>———-im_scales———-<br>[1.8018018]</p>
+<p>输入000456.jpg<br>———-im_scales———-<br>[1.6]</p>
+<p>blob[‘data’].shape<br>(1, 600, 800, 3)<br>blobs[‘im_info’]<br>[600.  800.    1.6]</p>
+<p>缩放比例后续需要输入到ROI网络里,作为参数,原因:<br><img src="/2019/10/24/关于tf-faster-rcnn的笔记/6.png" alt="图6"></p>
+<p>1 Conv layers<br>Conv layers包含了conv，pooling，relu三种层。以python版本中的VGG16模型中的faster_rcnn_test.pt的网络结构为例，如图2，Conv layers部分共有13个conv层，13个relu层，4个pooling层。这里有一个非常容易被忽略但是又无比重要的信息，在Conv layers中：</p>
+<p>所有的conv层都是：kernel_size=3，pad=1，stride=1<br>所有的pooling层都是：kernel_size=2，pad=1，stride=1<br>关于卷积层的计算公式<br><a href="https://blog.csdn.net/dcrmg/article/details/79652487" target="_blank" rel="noopener">https://blog.csdn.net/dcrmg/article/details/79652487</a><br><img src="/2019/10/24/关于tf-faster-rcnn的笔记/2.png" alt="图2"><br>关于池化层的计算公式<br><a href="https://blog.csdn.net/sinat_32547403/article/details/74937527" target="_blank" rel="noopener">https://blog.csdn.net/sinat_32547403/article/details/74937527</a><br><img src="/2019/10/24/关于tf-faster-rcnn的笔记/3.png" alt="图3"></p>
+<p>通过这一层会输出feature map(特征一类) 对应生成256张特征图，所以相当于feature map每个点都是256-dimensions</p>
+<p>2 Region Proposal Networks(RPN)<br>经典的检测方法生成检测框都非常耗时，如OpenCV adaboost使用滑动窗口+图像金字塔生成检测框；或如R-CNN使用SS(Selective Search)方法生成检测框。而Faster RCNN则抛弃了传统的滑动窗口和SS方法，直接使用RPN生成检测框，这也是Faster R-CNN的巨大优势，能极大提升检测框的生成速度。<br><img src="/2019/10/24/关于tf-faster-rcnn的笔记/4.png" alt="图4"><br>上图4展示了RPN网络的具体结构。可以看到RPN网络实际分为2条线，上面一条通过softmax分类anchors获得positive和negative分类，下面一条用于计算对于anchors的bounding box regression偏移量，以获得精确的proposal。而最后的Proposal层则负责综合positive anchors和对应bounding box regression偏移量获取proposals，同时剔除太小和超出边界的proposals。其实整个网络到了Proposal Layer这里，就完成了相当于目标定位的功能。</p>
+<p>代码部分<br>经过net.network.py 里面的 test_image函数返回<br>_, scores, bbox_pred, rois</p>
+<p>————_————<br>(300, 21)<br>————scores————<br>(300, 21)<br>————bbox_pred————<br>(300, 84)<br>————rois————<br>(300, 5)</p>
+<p>是否应用bounding-box regression deltas</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if cfg.TEST.BBOX_REG:</span><br><span class="line">    # Apply bounding-box regression deltas</span><br><span class="line">    box_deltas = bbox_pred</span><br><span class="line">    pred_boxes = bbox_transform_inv(boxes, box_deltas)</span><br><span class="line">    pred_boxes = _clip_boxes(pred_boxes, im.shape)</span><br><span class="line">return scores, pred_boxes</span><br></pre></td></tr></table></figure>
+
+<p>(这里注意  net文件夹下有两个网络架构,vgg16,resnet_v1,这两个网络都继承了Network)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class resnetv1(Network):</span><br><span class="line">class vgg16(Network):</span><br></pre></td></tr></table></figure>
+
+<p>关于res101和vgg16的介绍(来自吴恩达的深度学习教程):<br><a href="https://mooc.study.163.com/learn/2001281004?tid=2001392030#/learn/content?type=detail&amp;id=2001728691" target="_blank" rel="noopener">https://mooc.study.163.com/learn/2001281004?tid=2001392030#/learn/content?type=detail&amp;id=2001728691</a></p>
+<p>2.1<br>此处代码在model.config.py</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Anchor scales for RPN</span><br><span class="line">__C.ANCHOR_SCALES = [8,16,32]#面积</span><br><span class="line"></span><br><span class="line"># Anchor ratios for RPN</span><br><span class="line">__C.ANCHOR_RATIOS = [0.5,1,2]#比例</span><br></pre></td></tr></table></figure>
+
+<p>其实RPN最终就是在原图尺度上，设置了密密麻麻的候选Anchor。然后用cnn去判断哪些Anchor是里面有目标的positive anchor，哪些是没目标的negative anchor。所以，仅仅是个二分类而已！</p>
+<p><img src="/2019/10/24/关于tf-faster-rcnn的笔记/7.png" alt="图7"></p>
+<p>2.2 softmax判定positive与negative<br>softmax逻辑回归模型是logistic回归模型在多分类问题上的推广，在多分类问题中，类标签y可以取两个以上的值。</p>
+<p>2.3 bounding box regression原理<br><img src="/2019/10/24/关于tf-faster-rcnn的笔记/8.png" alt="图8"><br><img src="/2019/10/24/关于tf-faster-rcnn的笔记/9.png" alt="图9"><br>计算偏移量的损失,使得他最小.<br>通常还会计算roi<br>关于roi</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># GRADED FUNCTION: iou</span><br><span class="line"></span><br><span class="line">def iou(box1, box2):</span><br><span class="line">    &quot;&quot;&quot;Implement the intersection over union (IoU) between box1 and box2</span><br><span class="line">    Arguments:</span><br><span class="line">    box1 -- first box, list object with coordinates (x1, y1, x2, y2)</span><br><span class="line">    box2 -- second box, list object with coordinates (x1, y1, x2, y2)</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    # 计算(y1, x1, y2, x2) Box1和Box2交叉点的坐标。计算它的面积。</span><br><span class="line">    xi1 = max(box1[0], box2[0])</span><br><span class="line">    yi1 = max(box1[1], box2[1])</span><br><span class="line">    xi2 = min(box1[2], box2[2])</span><br><span class="line">    yi2 = min(box1[3], box2[3])</span><br><span class="line">    inter_area = max(yi2-yi1,0)*max(xi2-xi1,0)</span><br><span class="line"></span><br><span class="line">    # 用公式计算并集面积: Union(A,B) = A + B - Inter(A,B)</span><br><span class="line">    box1_area = (box1[3]-box1[1])*(box1[2]-box1[0])</span><br><span class="line">    box2_area = (box2[3]-box2[1])*(box2[2]-box2[0])</span><br><span class="line">    union_area = box1_area+box2_area-inter_area</span><br><span class="line">    # compute the IoU</span><br><span class="line">    iou = inter_area/union_area</span><br><span class="line">    return iou</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2019/10/24/关于tf-faster-rcnn的笔记/10.png" alt="图10"></p>
+<p>3 Roi Pooling。<br>该层收集输入的feature maps和proposals，综合这些信息后提取proposal feature maps，送入后续全连接层判定目标类别。<br>这一层主要是为了解决原图输入尺寸不一的问题</p>
+<p>4 Classification<br>Classification部分利用已经获得的proposal feature maps，通过full connect层与softmax计算每个proposal具体属于那个类别（如人，车，电视等），输出cls_prob概率向量；同时再次利用bounding box regression获得每个proposal的位置偏移量bbox_pred，用于回归更加精确的目标检测框。</p>
+<p><img src="/2019/10/24/关于tf-faster-rcnn的笔记/11.png" alt="图11"><br>关于非极大值抑制的相关文件<br>lib.nms.cpu_nms.py<br>lib.nms.gpu_nms.py<br>model.nms_warpper.py</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#此处在demo函数内</span><br><span class="line">keep = nms(dets, NMS_THRESH)</span><br><span class="line">dets = dets[keep, :]</span><br></pre></td></tr></table></figure>
+
+<p>存在两种的非极大值抑制<br>利用非极大值抑制   去除可能性低于阈值的方框,然后在方框附近查看iou比较高的框,如果大于一定阈值,则把那些iou高的框去除</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 380435428@qq.com </span>
