@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>facedata.top | ZJX的个人博客</title>
-  <meta name="keywords" content=" 爬虫数据分析网站 ">
-  <meta name="description" content="facedata.top | ZJX的个人博客">
+  <title>opencv重映射与仿射变换 | ZJX的个人博客</title>
+  <meta name="keywords" content=" 数字图像处理100题 ">
+  <meta name="description" content="opencv重映射与仿射变换 | ZJX的个人博客">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="抓取链家78个城市共200万条数据,并使用pandas进行分析,用echarts进行可视化输出网站地址:http://facedata.top">
 <meta name="keywords" content="爬虫数据分析网站">
@@ -233,9 +233,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-facedata-top" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-opencv重映射与仿射变换" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">facedata.top</h1>
+        <h1 class="article-title">opencv重映射与仿射变换</h1>
     
     <div class="article-meta">
         
@@ -244,14 +244,14 @@
         
         <span class="tag">
             
-            <a href="javascript:" class="color4">爬虫数据分析网站</a>
+            <a href="javascript:" class="color1">数字图像处理100题</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-10-24 14:00:38'>2019-10-24 11:41</time>
+        创建时间:<time class="date" title='更新时间: 2019-10-24 14:17:07'>2019-10-24 14:07</time>
         
     </div>
     <div class="article-meta">
@@ -289,10 +289,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>抓取链家78个城市共200万条数据,并使用pandas进行分析,用echarts进行可视化输出<br>网站地址:<a href="http://facedata.top" target="_blank" rel="noopener">http://facedata.top</a></p>
-<a id="more"></a>
+        <p><img src="/2019/10/24/opencv重映射与仿射变换/1.png" alt="opencv重映射与仿射变换1"><br><img src="/2019/10/24/opencv重映射与仿射变换/2.jpg" alt="opencv重映射与仿射变换2"><br>重映射:就是把一副图像中某个位置的像素放置到另一个图片中的指定位置的过程</p>
+<p>g(x,y)=f(h(x,y))</p>
+<p>具体代码实现(可以查看数字图像处理第28道题目):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">int test28() </span><br><span class="line">&#123;</span><br><span class="line">	Mat src = imread(&quot;imori.jpg&quot;, IMREAD_COLOR);	</span><br><span class="line">	Mat dst(src.size(), src.type());</span><br><span class="line">        //注意此处的CV_32FC1</span><br><span class="line">	Mat map_x(src.size(), CV_32FC1);</span><br><span class="line">	Mat map_y(src.size(), CV_32FC1);</span><br><span class="line">	for (int i = 0; i &lt; map_x.rows; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		for (int j = 0; j &lt; map_x.cols; j++)</span><br><span class="line">		&#123;</span><br><span class="line">                       //注意此时的i,j</span><br><span class="line">			map_x.at&lt;float&gt;(i, j) = (float)j-30;</span><br><span class="line">			map_y.at&lt;float&gt;(i, j) = (float)i+30;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">       //使用remap</span><br><span class="line">	remap(src, dst, map_x, map_y, INTER_LINEAR, BORDER_CONSTANT, Scalar(0, 0, 0));</span><br><span class="line">	imshow(&quot;dst&quot;, dst);</span><br><span class="line">	waitKey(0);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2019/10/24/facedata-top/Snipaste_2019-10-24_11-43-47.png" alt="网页截图1"><br><img src="/2019/10/24/facedata-top/Snipaste_2019-10-24_11-46-06.png" alt="网页截图2"></p>
+<p>//使用上述代码可以实现效果如图</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
@@ -306,12 +308,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>facedata.top</p>
+    <p><span class="copy-title">文章标题:</span>opencv重映射与仿射变换</p>
     
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="ZJX">ZJX</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-10-24, 11:41:40</p>
-    <p><span class="copy-title">最后更新:</span>2019-10-24, 14:00:38</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/10/24/facedata-top/" title="facedata.top">http://yoursite.com/2019/10/24/facedata-top/</a>
+    <p><span class="copy-title">发布时间:</span>2019-10-24, 14:07:56</p>
+    <p><span class="copy-title">最后更新:</span>2019-10-24, 14:17:07</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/10/24/opencv重映射与仿射变换/" title="opencv重映射与仿射变换">http://yoursite.com/2019/10/24/opencv重映射与仿射变换/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
