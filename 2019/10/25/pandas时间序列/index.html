@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>关于tf-faster-rcnn的笔记 | ZJX的个人博客</title>
-  <meta name="keywords" content=" 目标检测定位 ">
-  <meta name="description" content="关于tf-faster-rcnn的笔记 | ZJX的个人博客">
+  <title>pandas时间序列 | ZJX的个人博客</title>
+  <meta name="keywords" content=" pandas ">
+  <meta name="description" content="pandas时间序列 | ZJX的个人博客">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="安装:apt-get install postgresql 查看版本psql –version 切换到管理员sudo su postgres 查看数据库一览表psql -l 创建数据库createdb dbname删除数据库dropdb dbname 进入数据库psql dbname 退出\q  (注意是反斜杠) 帮助\h 对命令查找帮助?  \g以分号结尾以执行查询 查看时间:select no">
 <meta name="keywords" content="PostgreSQL">
@@ -290,9 +290,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-关于tf-faster-rcnn的笔记" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-pandas时间序列" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">关于tf-faster-rcnn的笔记</h1>
+        <h1 class="article-title">pandas时间序列</h1>
     
     <div class="article-meta">
         
@@ -301,14 +301,14 @@
         
         <span class="tag">
             
-            <a href="javascript:" class="color2">目标检测定位</a>
+            <a href="javascript:" class="color2">pandas</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-10-24 17:38:06'>2019-10-24 14:23</time>
+        创建时间:<time class="date" title='更新时间: 2019-10-25 17:13:45'>2019-10-25 17:11</time>
         
     </div>
     <div class="article-meta">
@@ -346,50 +346,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>参考链接:<br><a href="http://www.telesens.co/2018/03/11/object-detection-and-classification-using-r-cnns/" target="_blank" rel="noopener">http://www.telesens.co/2018/03/11/object-detection-and-classification-using-r-cnns/</a><br><a href="https://zhuanlan.zhihu.com/p/31426458" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/31426458</a></p>
-<p>安装教程:<br><a href="https://github.com/endernewton/tf-faster-rcnn" target="_blank" rel="noopener">https://github.com/endernewton/tf-faster-rcnn</a><br><a href="https://blog.csdn.net/sinat_33486980/article/details/81045315" target="_blank" rel="noopener">https://blog.csdn.net/sinat_33486980/article/details/81045315</a></p>
-<p>R-CNN–&gt;fast rcnn–&gt;faster rcnn</p>
-<p>我这里利用的是tensorflow框架</p>
-<p>经过R-CNN和Fast RCNN的积淀，Ross B. Girshick在2016年提出了新的Faster RCNN，在结构上，Faster RCNN已经将特征抽取(feature extraction)，proposal提取，bounding box regression(rect refine)，classification都整合在了一个网络中，使得综合性能有较大提高，在检测速度方面尤为明显。</p>
-<p>具体网络架构如下:<br><img src="/2019/10/24/关于tf-faster-rcnn的笔记/1.png" alt="图1"></p>
-<p>代码部分<br>图像预处理<br>在通过网络发送图像之前，以下预处理步骤已应用于该图像。对于训练和推理，这些步骤必须相同。<br>平均值矢量（3 X1对应于每个颜色通道的一个数字）不是当前图像中像素值的平均值，而是在所有训练和测试图像中相同的配置值。<br><img src="/2019/10/24/关于tf-faster-rcnn的笔记/5.png" alt="图5"></p>
-<p>预处理步骤在model.test.py以及utils.blob.py 涉及的函数有:<br>_get_blobs  _get_image_blob im_list_to_blob</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">def _get_image_blob(im):</span><br><span class="line">    &quot;&quot;&quot;Converts an image into a network input.将图像转换为网络输入。</span><br><span class="line">    Arguments:</span><br><span class="line">      im (ndarray): a color image in BGR order</span><br><span class="line">    Returns:</span><br><span class="line">      blob (ndarray): a data blob holding an image pyramid持有图像金字塔的数据块</span><br><span class="line">      im_scale_factors (list): list of image scales (relative to im) used</span><br><span class="line">        in the image pyramid使用的图像比例列表（相对于im）在图像金字塔中&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">    im_orig = im.astype(np.float32, copy=True)</span><br><span class="line">    # 预处理:__C.PIXEL_MEANS = np.array([[[102.9801, 115.9465, 122.7717]]])</span><br><span class="line">    im_orig -= cfg.PIXEL_MEANS</span><br><span class="line"></span><br><span class="line">    im_shape = im_orig.shape</span><br><span class="line">    im_size_min = np.min(im_shape[0:2])  # 显示图像较短的边</span><br><span class="line">    im_size_max = np.max(im_shape[0:2])  # 显示图像较长的边</span><br><span class="line"></span><br><span class="line">    processed_ims = []</span><br><span class="line">    im_scale_factors = []</span><br><span class="line">    # __C.TEST.SCALES = (600,)</span><br><span class="line">    for target_size in cfg.TEST.SCALES:</span><br><span class="line">        im_scale = float(target_size) / float(im_size_min)</span><br><span class="line">        # Prevent the biggest axis from being more than MAX_SIZE</span><br><span class="line">        if np.round(im_scale * im_size_max) &gt; cfg.TEST.MAX_SIZE:</span><br><span class="line">            im_scale = float(cfg.TEST.MAX_SIZE) / float(im_size_max)</span><br><span class="line">        im = cv2.resize(im_orig, None, None, fx=im_scale, fy=im_scale,</span><br><span class="line">                        interpolation=cv2.INTER_LINEAR)</span><br><span class="line">        #</span><br><span class="line">        im_scale_factors.append(im_scale)</span><br><span class="line">        processed_ims.append(im)</span><br><span class="line">    # Create a blob to hold the input images</span><br><span class="line">    blob = im_list_to_blob(processed_ims)</span><br><span class="line"></span><br><span class="line">    return blob, np.array(im_scale_factors)</span><br></pre></td></tr></table></figure>
-
-<p>通过上面的预处理可以把图像输入变成 blobs, im_scales<br>blobs<br>Caffe使用Blob来交流数据，其是Caffe中标准的数组与统一的内存接口，它是多功能的。在不同的应用场景具有不同的含义，如能够是：batches of images, model parameters, and derivatives for optimization等。<br>im_scales<br>是比例一类的数据,证明输入不同尺寸的图片,它的im_scales不同</p>
-<p>输入graffe.jpg<br>———-im_scales———-<br>[1.8018018]</p>
-<p>输入000456.jpg<br>———-im_scales———-<br>[1.6]</p>
-<p>blob[‘data’].shape<br>(1, 600, 800, 3)<br>blobs[‘im_info’]<br>[600.  800.    1.6]</p>
-<p>缩放比例后续需要输入到ROI网络里,作为参数,原因:<br><img src="/2019/10/24/关于tf-faster-rcnn的笔记/6.png" alt="图6"></p>
-<p>1 Conv layers<br>Conv layers包含了conv，pooling，relu三种层。以python版本中的VGG16模型中的faster_rcnn_test.pt的网络结构为例，如图2，Conv layers部分共有13个conv层，13个relu层，4个pooling层。这里有一个非常容易被忽略但是又无比重要的信息，在Conv layers中：</p>
-<p>所有的conv层都是：kernel_size=3，pad=1，stride=1<br>所有的pooling层都是：kernel_size=2，pad=1，stride=1<br>关于卷积层的计算公式<br><a href="https://blog.csdn.net/dcrmg/article/details/79652487" target="_blank" rel="noopener">https://blog.csdn.net/dcrmg/article/details/79652487</a><br><img src="/2019/10/24/关于tf-faster-rcnn的笔记/2.png" alt="图2"><br>关于池化层的计算公式<br><a href="https://blog.csdn.net/sinat_32547403/article/details/74937527" target="_blank" rel="noopener">https://blog.csdn.net/sinat_32547403/article/details/74937527</a><br><img src="/2019/10/24/关于tf-faster-rcnn的笔记/3.png" alt="图3"></p>
-<p>通过这一层会输出feature map(特征一类) 对应生成256张特征图，所以相当于feature map每个点都是256-dimensions</p>
-<p>2 Region Proposal Networks(RPN)<br>经典的检测方法生成检测框都非常耗时，如OpenCV adaboost使用滑动窗口+图像金字塔生成检测框；或如R-CNN使用SS(Selective Search)方法生成检测框。而Faster RCNN则抛弃了传统的滑动窗口和SS方法，直接使用RPN生成检测框，这也是Faster R-CNN的巨大优势，能极大提升检测框的生成速度。<br><img src="/2019/10/24/关于tf-faster-rcnn的笔记/4.png" alt="图4"><br>上图4展示了RPN网络的具体结构。可以看到RPN网络实际分为2条线，上面一条通过softmax分类anchors获得positive和negative分类，下面一条用于计算对于anchors的bounding box regression偏移量，以获得精确的proposal。而最后的Proposal层则负责综合positive anchors和对应bounding box regression偏移量获取proposals，同时剔除太小和超出边界的proposals。其实整个网络到了Proposal Layer这里，就完成了相当于目标定位的功能。</p>
-<p>代码部分<br>经过net.network.py 里面的 test_image函数返回<br>_, scores, bbox_pred, rois</p>
-<p>————_————<br>(300, 21)<br>————scores————<br>(300, 21)<br>————bbox_pred————<br>(300, 84)<br>————rois————<br>(300, 5)</p>
-<p>是否应用bounding-box regression deltas</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if cfg.TEST.BBOX_REG:</span><br><span class="line">    # Apply bounding-box regression deltas</span><br><span class="line">    box_deltas = bbox_pred</span><br><span class="line">    pred_boxes = bbox_transform_inv(boxes, box_deltas)</span><br><span class="line">    pred_boxes = _clip_boxes(pred_boxes, im.shape)</span><br><span class="line">return scores, pred_boxes</span><br></pre></td></tr></table></figure>
-
-<p>(这里注意  net文件夹下有两个网络架构,vgg16,resnet_v1,这两个网络都继承了Network)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class resnetv1(Network):</span><br><span class="line">class vgg16(Network):</span><br></pre></td></tr></table></figure>
-
-<p>关于res101和vgg16的介绍(来自吴恩达的深度学习教程):<br><a href="https://mooc.study.163.com/learn/2001281004?tid=2001392030#/learn/content?type=detail&amp;id=2001728691" target="_blank" rel="noopener">https://mooc.study.163.com/learn/2001281004?tid=2001392030#/learn/content?type=detail&amp;id=2001728691</a></p>
-<p>2.1<br>此处代码在model.config.py</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Anchor scales for RPN</span><br><span class="line">__C.ANCHOR_SCALES = [8,16,32]#面积</span><br><span class="line"></span><br><span class="line"># Anchor ratios for RPN</span><br><span class="line">__C.ANCHOR_RATIOS = [0.5,1,2]#比例</span><br></pre></td></tr></table></figure>
-
-<p>其实RPN最终就是在原图尺度上，设置了密密麻麻的候选Anchor。然后用cnn去判断哪些Anchor是里面有目标的positive anchor，哪些是没目标的negative anchor。所以，仅仅是个二分类而已！</p>
-<p><img src="/2019/10/24/关于tf-faster-rcnn的笔记/7.png" alt="图7"></p>
-<p>2.2 softmax判定positive与negative<br>softmax逻辑回归模型是logistic回归模型在多分类问题上的推广，在多分类问题中，类标签y可以取两个以上的值。</p>
-<p>2.3 bounding box regression原理<br><img src="/2019/10/24/关于tf-faster-rcnn的笔记/8.png" alt="图8"><br><img src="/2019/10/24/关于tf-faster-rcnn的笔记/9.png" alt="图9"><br>计算偏移量的损失,使得他最小.<br>通常还会计算roi<br>关于roi</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># GRADED FUNCTION: iou</span><br><span class="line"></span><br><span class="line">def iou(box1, box2):</span><br><span class="line">    &quot;&quot;&quot;Implement the intersection over union (IoU) between box1 and box2</span><br><span class="line">    Arguments:</span><br><span class="line">    box1 -- first box, list object with coordinates (x1, y1, x2, y2)</span><br><span class="line">    box2 -- second box, list object with coordinates (x1, y1, x2, y2)</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    # 计算(y1, x1, y2, x2) Box1和Box2交叉点的坐标。计算它的面积。</span><br><span class="line">    xi1 = max(box1[0], box2[0])</span><br><span class="line">    yi1 = max(box1[1], box2[1])</span><br><span class="line">    xi2 = min(box1[2], box2[2])</span><br><span class="line">    yi2 = min(box1[3], box2[3])</span><br><span class="line">    inter_area = max(yi2-yi1,0)*max(xi2-xi1,0)</span><br><span class="line"></span><br><span class="line">    # 用公式计算并集面积: Union(A,B) = A + B - Inter(A,B)</span><br><span class="line">    box1_area = (box1[3]-box1[1])*(box1[2]-box1[0])</span><br><span class="line">    box2_area = (box2[3]-box2[1])*(box2[2]-box2[0])</span><br><span class="line">    union_area = box1_area+box2_area-inter_area</span><br><span class="line">    # compute the IoU</span><br><span class="line">    iou = inter_area/union_area</span><br><span class="line">    return iou</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2019/10/24/关于tf-faster-rcnn的笔记/10.png" alt="图10"></p>
-<p>3 Roi Pooling。<br>该层收集输入的feature maps和proposals，综合这些信息后提取proposal feature maps，送入后续全连接层判定目标类别。<br>这一层主要是为了解决原图输入尺寸不一的问题</p>
-<p>4 Classification<br>Classification部分利用已经获得的proposal feature maps，通过full connect层与softmax计算每个proposal具体属于那个类别（如人，车，电视等），输出cls_prob概率向量；同时再次利用bounding box regression获得每个proposal的位置偏移量bbox_pred，用于回归更加精确的目标检测框。</p>
-<p><img src="/2019/10/24/关于tf-faster-rcnn的笔记/11.png" alt="图11"><br>关于非极大值抑制的相关文件<br>lib.nms.cpu_nms.py<br>lib.nms.gpu_nms.py<br>model.nms_warpper.py</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#此处在demo函数内</span><br><span class="line">keep = nms(dets, NMS_THRESH)</span><br><span class="line">dets = dets[keep, :]</span><br></pre></td></tr></table></figure>
-
-<p>存在两种的非极大值抑制<br>利用非极大值抑制   去除可能性低于阈值的方框,然后在方框附近查看iou比较高的框,如果大于一定阈值,则把那些iou高的框去除</p>
+        <p><img src="/2019/10/25/pandas时间序列/1.png" alt="pandas时间序列的index"></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 380435428@qq.com </span>
