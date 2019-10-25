@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>链家爬虫与数据分析 | ZJX的个人博客</title>
-  <meta name="keywords" content=" 爬虫数据分析网站 ">
-  <meta name="description" content="链家爬虫与数据分析 | ZJX的个人博客">
+  <title>PostgreSql | ZJX的个人博客</title>
+  <meta name="keywords" content=" PostgreSQL ">
+  <meta name="description" content="PostgreSql | ZJX的个人博客">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="题目:Given a collection of intervals, merge all overlapping intervals. Example 1: Input: [[1,3],[2,6],[8,10],[15,18]]Output: [[1,6],[8,10],[15,18]]Explanation: Since intervals [1,3] and [2,6] overlaps,">
 <meta name="keywords" content="Leetcode">
@@ -272,9 +272,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-lianjia" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-PostgreSql" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">链家爬虫与数据分析</h1>
+        <h1 class="article-title">PostgreSql</h1>
     
     <div class="article-meta">
         
@@ -283,14 +283,14 @@
         
         <span class="tag">
             
-            <a href="javascript:" class="color4">爬虫数据分析网站</a>
+            <a href="javascript:" class="color1">PostgreSQL</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-10-24 14:01:47'>2019-03-03 23:01</time>
+        创建时间:<time class="date" title='更新时间: 2019-10-25 16:33:55'>2019-10-25 15:49</time>
         
     </div>
     <div class="article-meta">
@@ -328,25 +328,21 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>爬虫部分:<br>利用python的scrapy框架对链家(lianjia.com)进行爬取,爬取城市约95个,每个城市二手房数量约20000条,数据总数约为200万条.</p>
-<p>分析部分:<br>利用numpy,pandas对抓取到的数据进行普通的分析,如平均值,极值,区域平均值.</p>
-<p>可视化部分:<br>在jupyternotebook上利用matplotlib对数据进行可视化,显示出堆叠图,条形图,饼状图.</p>
-<a id="more"></a>
-<p>功能:用户可以输入想要查看的城市,从数据库中读取到该城市的二手房数据,读取出csv文件(或者excel可供用户选择)保存在本地,等待用户自己进行分析,或者使用分析部分,直接帮助用户对数据进行分析.直接显示出统计数据,条形图,堆叠图等可视化信息,以供用户进行大致的了解</p>
-<p>下面是广州部分数据的展示:</p>
-<p>包括:标题(title),网页地址(url),地址(address),每平方米单价(unit_Price),总价(total_price),面积(area),区域(area1),朝向(direction),层数(floor),房间结构(rooms),类型(type),推荐原因(recommended)</p>
-<p><img src="/2019/03/03/lianjia/%E6%95%B0%E6%8D%AE%E5%B1%95%E7%A4%BA.png" alt="阿里云mysql数据库"></p>
-<!--more-->
-<p>可视化(以广州为准):</p>
-<p><img src="/2019/03/03/lianjia/%E5%9D%87%E5%80%BC.png" alt="均值"><br><img src="/2019/03/03/lianjia/%E6%98%82%E8%B4%B5.png" alt="昂贵"><br><img src="/2019/03/03/lianjia/%E6%95%B0%E9%87%8F%E6%9D%A1%E5%BD%A2%E5%9B%BE.png" alt="区域数量条形图"><br><img src="/2019/03/03/lianjia/%E5%8D%95%E4%BB%B7%E6%9D%A1%E5%BD%A2%E5%9B%BE.png" alt="单价条形图"><br><img src="/2019/03/03/lianjia/%E6%80%BB%E4%BB%B7%E6%9D%A1%E5%BD%A2%E5%9B%BE.png" alt="总价条形图"><br><img src="/2019/03/03/lianjia/%E5%8D%95%E4%BB%B7%E5%88%86%E5%B8%83.png" alt="单价堆叠图"><br><img src="/2019/03/03/lianjia/%E6%80%BB%E4%BB%B7%E5%88%86%E5%B8%83.png" alt="总价堆叠图"></p>
-<p>主要过程:</p>
-<p>  设计之初,我犯了一个巨大错误,就是希望在使用用户的主机上直接实行爬虫程序,这是完全错误的想法,<br>首先利用用户主机进行爬虫,会造成用户的内存,CPU,网络大量流失,使得用户在运行时,不能获得良好的<br>体验,这是非常错误的.</p>
-<p>  为何不把繁琐的工作交给服务器,用户只需要从服务器上读取到自己想要的数据,然后在自己的电脑上实现分析<br>即可,这样的做法较之与前,是有着无数的优点.<br>    第一:节省时间,用户读取数据,所有都是有效信息,而爬虫则是需要从无数的网页进行xpath数量抓取,从沙中<br>淘金这样,读取只需要短短的1分钟,而爬取则需要数不甚数的时间<br>    第二:节省资源,如果说用户需要用自己的CPU,自己的内存,自己的网络进行抓取,这是多么愚蠢的一件事,用户看重<br>的不是你的过程,你给他呈现怎么样的过程,用户一点也不会关系,更不用说你占用了他所有的资源,我承认看着数据一点<br>获取是一件很爽的事,但是这件事如果让你的电脑网络占用,内存占用,那就谈不上是一种享受了.<br>    第三:过程简单化,如果在抓取过程中,出现了错误,爬虫中断,或者自己的ip池,cookie池失效,则爬虫程序会终止,<br>用户难不成要通过修改你的程序来获得数据?而读取数据库的错误甚微,基本不会出现错误.</p>
-<p>我对爬虫的看法:<br>我学完python之后很快就入了爬虫的坑,起初爬取一些图片资源,看着那些美眉的图片显示在我的硬盘里,给予了我莫大的满足感,<br>之后我抓取了豆瓣,前程无忧,京东等有意思的网站,这之间花费了我大概半年的时间,我从普通的用for循环和urllib,到xpath加构建方法,<br>到pyspider,到scrapy学习了很多牛逼的爬虫技术,期间我还购买了自己的服务器,实现了scrapy-redis分布式爬虫,实现了自己本机和服务器双端<br>共同爬取网页.数据库的知识也是从mongodb,redis,再到mysql,这些数据库,我只能说,我懂得甚微,只是简单的增删改查,这些就足以满足我的爬虫<br>需求了.</p>
-<p>但是,在我学习了pandas,numpy,matplotlib之后,我发现,爬虫其实就是一种工具,把它完全当做自己的工作是比较困难的一件事.</p>
-<p>爬虫的缺点:爬虫的目的就是获取的数据,这些数据用来干嘛呢,当然是用来分析,但是一旦数据被网站封锁,或者数据经过网站修改,这样爬取的结果会<br>出现全盘的错误,而错误的数据肯定会得出错误的结果,并且有着反爬的手段,就我所知现在的验证方式,除了验证码,登陆,拖动登陆,图形验证码,这样的验证码,<br>层出不穷,如果要对这些网站反爬你就必须得攻克这些反爬,这些会浪费大量的时间,不同的验证方式,就有不同的验证手法,所以说爬虫获取的数据只能起到辅助<br>分析的作用,并不能取到主要的数据获取来源.</p>
-<p>那么怎么样才能使数据来源变得可靠呢?</p>
-<p>我觉得为用户创造环境,用户自身产生数据,自己的数据,永远从别人那里获得的数据可靠的多.</p>
+        <p>安装:<br>apt-get install postgresql</p>
+<p>查看版本<br>psql –version</p>
+<p>切换到管理员<br>sudo su postgres</p>
+<p>查看数据库一览表<br>psql -l</p>
+<p>创建数据库<br>createdb dbname<br>删除数据库<br>dropdb dbname</p>
+<p>进入数据库<br>psql dbname</p>
+<p>退出<br>\q  (注意是反斜杠)</p>
+<p>帮助<br>\h</p>
+<p>对命令查找帮助<br>? </p>
+<p>\g<br>以分号结尾以执行查询</p>
+<p>查看时间:<br>select now();   //需要加上;<br>查看版本:<br>select version();  //需要加上;</p>
+<p>创建数据表<br>create table table_name (title varchar(255),content text);</p>
+<p>查看所有数据表<br>\dt</p>
+<p>查看指定数据表的内容<br>\d table_name</p>
+<p>重命名数据表<br>alert table table_name1 rename to table_name2;</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 380435428@qq.com </span>
