@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>opencv重映射和仿射变换2 | ZJX的个人博客</title>
-  <meta name="keywords" content=" 数字图像处理100题 ">
-  <meta name="description" content="opencv重映射和仿射变换2 | ZJX的个人博客">
+  <title>sql语言复习 | ZJX的个人博客</title>
+  <meta name="keywords" content=" SQL语言 ">
+  <meta name="description" content="sql语言复习 | ZJX的个人博客">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="keywords" content="pandas">
 <meta property="og:type" content="article">
@@ -301,9 +301,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-opencv重映射和仿射变换2" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-sql语言复习" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">opencv重映射和仿射变换2</h1>
+        <h1 class="article-title">sql语言复习</h1>
     
     <div class="article-meta">
         
@@ -312,14 +312,14 @@
         
         <span class="tag">
             
-            <a href="javascript:" class="color1">数字图像处理100题</a>
+            <a href="javascript:" class="color1">SQL语言</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-10-24 17:44:48'>2019-10-24 17:43</time>
+        创建时间:<time class="date" title='更新时间: 2019-10-28 18:34:29'>2019-10-28 17:05</time>
         
     </div>
     <div class="article-meta">
@@ -357,15 +357,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>仿射变换指的是一个向量空间进行一次线性变换并接上一个平移，变换为另一个向量空间的过程。</p>
-<p>图像进行仿射变换后，有以下几个特点：<br>二维图形之间的相对位置关系保持不变，平行线依旧是平行线，且直线上的点的位置顺序保持不变。</p>
-<p>一个任意的仿射变换都可以表示为乘以一个矩阵（线性变换）接着再加上一个向量（平移）的形式。</p>
-<p>三种常见形式：<br>旋转，rotation（线性变换）<br>平移，translation（向量加）<br>缩放，scale（线性变换）</p>
-<p>对于数字图像100题的28题使用仿射变换:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">int test28() </span><br><span class="line">&#123;</span><br><span class="line">	Mat src = imread(&quot;imori.jpg&quot;, IMREAD_COLOR);</span><br><span class="line">	</span><br><span class="line">	Mat dst(src.size(), src.type());</span><br><span class="line">	Mat dst_warp, dst_warpRotateScale;</span><br><span class="line">	Point2f srcPoints[3];//原图中的三点;  </span><br><span class="line">	Point2f dstPoints[3];//目标图中的三点;</span><br><span class="line">	//三个点对的值,上面也说了，只要知道你想要变换后图的三个点的坐标，就可以实现仿射变换;</span><br><span class="line">	srcPoints[0] = Point2f(0, 0);</span><br><span class="line">	srcPoints[1] = Point2f(1, 0);</span><br><span class="line">	srcPoints[2] = Point2f(0, 1);</span><br><span class="line">	//映射后的三个坐标值;</span><br><span class="line">	dstPoints[0] = Point2f(30,-30);</span><br><span class="line">	dstPoints[1] = Point2f(31,-30);</span><br><span class="line">	dstPoints[2] = Point2f(30,-29);</span><br><span class="line">	Mat M1 = getAffineTransform(srcPoints, dstPoints);</span><br><span class="line">	warpAffine(src, dst_warp, M1, src.size());</span><br><span class="line">	imshow(&quot;dst&quot;, dst_warp);</span><br><span class="line">	waitKey(0);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>mysql的登陆<br>1 mysql -u root -p  (u代表user,p代表password)</p>
+<p>mysql的退出<br>2 quit;</p>
+<p>展示数据库<br>3 show databases;</p>
+<p>使用某个数据库<br>4 use dbname;</p>
+<p>展示当前数据库中的数据表<br>5 show tables;</p>
+<p>查看现有用户<br>6 select host,user,authentication_string from mysql.user;</p>
+<p>选取数据表的某列<br>7 select * frome table_name;</p>
+<p>创建数据表<br>8 create table +(table_name)<br>(<br>列名称1 数据类型,<br>列名称2 数据类型,<br>列名称3 数据类型,<br>);</p>
+<p>删除表<br>drop table table_name;</p>
+<p>数据类型:数值,字符串,时期时间 查看下表<br><img src="/2019/10/28/sql语言复习/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%95%B0%E5%80%BC%E7%B1%BB.png" alt="数值类"><br><img src="/2019/10/28/sql语言复习/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB.png" alt="字符类"><br><img src="/2019/10/28/sql语言复习/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%97%B6%E9%97%B4%E7%B1%BB.png" alt="时间类"></p>
+<p>插入数据<br>9 Insert into (table_name) values(值1,值2…);</p>
+<p>查看数据<br>10 select column_name from table_name;<br>   select * from table_name 全选查看</p>
 
-<p>对于30题 可以使用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Mat M1 = getRotationMatrix2D(center, angle, scale);</span><br><span class="line">int test30()</span><br><span class="line">&#123;</span><br><span class="line">	Mat src = imread(&quot;imori.jpg&quot;, IMREAD_COLOR);</span><br><span class="line">	Mat dst;</span><br><span class="line">	Point2f center(src.cols / 2, src.rows / 2);</span><br><span class="line">	double angle = 30;</span><br><span class="line">	double scale = 1.0;</span><br><span class="line">	Mat M1 = getRotationMatrix2D(center, angle, scale);</span><br><span class="line">	warpAffine(src, dst, M1, src.size());</span><br><span class="line">	imshow(&quot;dst&quot;, dst);</span><br><span class="line">	waitKey(0);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 380435428@qq.com </span>
     </div>
