@@ -17,7 +17,8 @@
 <meta property="og:image" content="http://yoursite.com/2019/10/28/sql语言复习/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%95%B0%E5%80%BC%E7%B1%BB.png">
 <meta property="og:image" content="http://yoursite.com/2019/10/28/sql语言复习/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB.png">
 <meta property="og:image" content="http://yoursite.com/2019/10/28/sql语言复习/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%97%B6%E9%97%B4%E7%B1%BB.png">
-<meta property="og:updated_time" content="2019-10-28T10:34:29.287Z">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/sql语言复习/mysql%E6%93%8D%E4%BD%9C%E7%AC%A6.png">
+<meta property="og:updated_time" content="2019-10-29T07:28:17.850Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sql语言复习">
 <meta name="twitter:description" content="mysql的登陆1 mysql -u root -p  (u代表user,p代表password) mysql的退出2 quit; 展示数据库3 show databases; 使用某个数据库4 use dbname; 展示当前数据库中的数据表5 show tables; 查看现有用户6 select host,user,authentication_string from mysql.user;">
@@ -324,7 +325,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-10-28 18:34:29'>2019-10-28 17:05</time>
+        创建时间:<time class="date" title='更新时间: 2019-10-29 15:28:17'>2019-10-28 17:05</time>
         
     </div>
     <div class="article-meta">
@@ -368,12 +369,22 @@
 <p>使用某个数据库<br>4 use dbname;</p>
 <p>展示当前数据库中的数据表<br>5 show tables;</p>
 <p>查看现有用户<br>6 select host,user,authentication_string from mysql.user;</p>
-<p>选取数据表的某列<br>7 select * frome table_name;</p>
-<p>创建数据表<br>8 create table +(table_name)<br>(<br>列名称1 数据类型,<br>列名称2 数据类型,<br>列名称3 数据类型,<br>);</p>
+<p>创建数据表<br>7 create table +(table_name)<br>(<br>列名称1 数据类型,<br>列名称2 数据类型,<br>列名称3 数据类型,<br>);</p>
 <p>删除表<br>drop table table_name;</p>
 <p>数据类型:数值,字符串,时期时间 查看下表<br><img src="/2019/10/28/sql语言复习/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%95%B0%E5%80%BC%E7%B1%BB.png" alt="数值类"><br><img src="/2019/10/28/sql语言复习/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB.png" alt="字符类"><br><img src="/2019/10/28/sql语言复习/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%97%B6%E9%97%B4%E7%B1%BB.png" alt="时间类"></p>
-<p>插入数据<br>9 Insert into (table_name) values(值1,值2…);</p>
-<p>查看数据<br>10 select column_name from table_name;<br>   select * from table_name 全选查看</p>
+<p>插入数据<br>8 Insert into (table_name) values(值1,值2…);<br>  insert into test1(age) values (13); –&gt;如果不规定其他值,则该值指定为NULL</p>
+<p>查看数据<br>9  select column_name from table_name;</p>
+<p>   select * from table_name; 全选查看</p>
+<p>   select distinct column_name frome table_name;关键词 DISTINCT 用于返回唯一不同的值。</p>
+<p>选取符合条件的几列<br>10 select column from table_name where (column_name 运算符 values);<br>   exp:select age from test1 where(name=’zjx’);<br><img src="/2019/10/28/sql语言复习/mysql%E6%93%8D%E4%BD%9C%E7%AC%A6.png" alt="操作符"></p>
+<p>and 和 or 的使用<br>11 exp: select * from test1 where(name=’zjx’ and age=19);</p>
+<p>排序<br>12 order by(改变顺序后并不会改变原表的顺序)</p>
+<p>asc  顺序<br>desc 逆序</p>
+<p>select column_name from table_name order by column_name (默认asc,除非定义desc);</p>
+<p>更新<br>13 update<br>update table_name set column_name = new_value where column = value;<br>exp:update test1 set age=12 where name=’zjx’;<br>如果有多行满足条件,则全部更新</p>
+<p>如果需要更新多值,则用逗号隔开<br>update test1 set name=’zjx’,birthday=’20191029’ where age=8;</p>
+<p>删除<br>14 delete<br>delete from table_name where column = some_value;<br>exp: delete from test1 where age=12;</p>
+<p>delete * from table_name; 删除所有行</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 380435428@qq.com </span>
